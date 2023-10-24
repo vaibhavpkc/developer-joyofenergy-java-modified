@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uk.tw.energy.exceptions.NoReadingsExistForMeterId;
-import uk.tw.energy.service.AccountService;
 import uk.tw.energy.service.PricePlanService;
 
 import java.math.BigDecimal;
@@ -22,15 +21,13 @@ public class PricePlanComparatorController {
      */
 
     private final PricePlanService pricePlanService;
-    private final AccountService accountService;
     private static final String LIMIT = "limit";
     private static final String INVALID_LIMIT = "Limit is not correct.";
     private static final String LIMIT_REGEX = "^[0-9]{2}$";
 
 
-    public PricePlanComparatorController(PricePlanService pricePlanService, AccountService accountService) {
+    public PricePlanComparatorController(PricePlanService pricePlanService) {
         this.pricePlanService = pricePlanService;
-        this.accountService = accountService;
     }
 
     /**
@@ -41,7 +38,6 @@ public class PricePlanComparatorController {
      */
     @GetMapping("/compare-all/{smartMeterId}")
     @Pattern(regexp = SMART_METER_ID_REGEX, message = INVALID_SMART_METER_ID)
-
     public ResponseEntity<Map<String, Object>> calculatedCostForEachPricePlan(@PathVariable String smartMeterId) throws NoReadingsExistForMeterId {
         try {
             Map<String, Object> responseMap = pricePlanService.getCostForEachPricePlan(smartMeterId);
