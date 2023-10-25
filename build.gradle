@@ -58,7 +58,6 @@ task functionalTest(type: Test) {
 dependencies {
     /* Spring Boot */
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.jetbrains:annotations:24.0.0'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
